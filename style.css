@@ -30,7 +30,7 @@ header {
 
 label {
     position: absolute;
-    right: 80px;
+    right: 40px;
 }
 
 #search-icon {
@@ -45,7 +45,7 @@ label {
 }
 
 #search-box {
-    width: 70%;
+    width: 80%;
     padding: 10px;
     margin: 10px 0;
     font-size: 16px;
@@ -59,7 +59,7 @@ label {
     overflow-x: auto;
     display: flex;
     flex-direction: row;
-    gap: 30px;
+    gap: 20px;
 }
 
 #type-of-product > a {
@@ -68,15 +68,19 @@ label {
 }
 
 .pilyonka {
-    width: 100px;
+    width: 70px;
     text-align: center;
 }
 
 .pilyonka img {
-    width: 100px;
-    height: 100px;
+    width: 70px;
+    height: 70px;
     border-radius: 50%;
     border: 1px solid black;
+}
+
+.pilyonka p {
+    font-size: 12px;
 }
 
 .pilyonka img:hover {
