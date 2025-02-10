@@ -87,6 +87,10 @@ label {
     border: 3px solid black;
 }
 
+#uzb {
+    margin-top: 30px;
+}
+
 #products {
     display: flex;
     justify-content: center;
