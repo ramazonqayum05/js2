@@ -11,6 +11,12 @@
     <ul id="order-list"></ul>
 
     <script>
+        let password = prompt("Admin parolini kiriting:");
+    if (password !== "191005") {
+        alert("Noto‘g‘ri parol!");
+        window.location.href = "index.html"; // Notog'ri kiritganda asosiy sahifaga qaytarish
+    }
+
         const firebaseConfig = {
             apiKey: "AIzaSyA9135j...",
             authDomain: "chat-ff9c7.firebaseapp.com",
