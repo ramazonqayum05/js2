@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Issiqxona Plyonkasi Do'koni</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="style.css">
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 <script>
@@ -25,36 +27,46 @@
     </script>
 </head>
 <body>
-    <header>
-        <h1>Issiqxona Plyonkasi Do'koni</h1>
-    </header>
-    
-    <section id="products">
-        <div class="product">
-            <img src="img/product1.jpg" alt="Mahsulot 1">
-            <h3>Mahsulot 1</h3>
-            <p>Issiqxona plyonkasi, yuqori sifat</p>
-            <p>5000 so'm per metr</p>
-            <input type="number" id="meter-1" placeholder="Necha metr?" min="1" value="1" onchange="updatePrice(1, 5000)">
-            <p>Jami narx: <span id="total-1">5000</span> so'm</p>
-            <button onclick="addToCart(1, 'Mahsulot 1', 5000)">Sotib olish</button>
-        </div>
-        <div class="product">
-            <img src="img/product2.jpg" alt="Mahsulot 2">
-            <h3>Mahsulot 2</h3>
-            <p>UV himoyali plyonka</p>
-            <p>7000 so'm per metr</p>
-            <input type="number" id="meter-2" placeholder="Necha metr?" min="1" value="1" onchange="updatePrice(2, 7000)">
-            <p>Jami narx: <span id="total-2">7000</span> so'm</p>
-            <button onclick="addToCart(2, 'Mahsulot 2', 7000)">Sotib olish</button>
-        </div>
-    </section>
-    
-    <section id="cart">
-        <h2>Savatcha</h2>
-        <ul id="cart-items"></ul>
-        <button id="order-btn">Buyurtma Berish</button>
-    </section>
+    <div class="container">
+        <header>
+            <input type="text" id="search-box" onkeyup="searchProducts()">
+            <label for="search-box">
+                <i id="search-icon" class='bx bx-search'></i>
+            </label>
+        </header>
+        <div class="space"></div>
+        <section id="products">
+            <div class="product">
+                <img src="img/product1.jpg" alt="Mahsulot 1">
+                <h3>Mahsulot 1</h3>
+                <p>Issiqxona plyonkasi, yuqori sifat</p>
+                <p>5000 so'm per metr</p>
+                <input type="number" id="meter-1" placeholder="Necha metr?" min="1" value="1" onchange="updatePrice(1, 5000)">
+                <p>Jami narx: <span id="total-1">5000</span> so'm</p>
+                <button onclick="addToCart(1, 'Mahsulot 1', 5000)">Sotib olish</button>
+            </div>
+            <div class="product">
+                <img src="img/product2.jpg" alt="Mahsulot 2">
+                <h3>Mahsulot 2</h3>
+                <p>UV himoyali plyonka</p>
+                <p>7000 so'm per metr</p>
+                <input type="number" id="meter-2" placeholder="Necha metr?" min="1" value="1" onchange="updatePrice(2, 7000)">
+                <p>Jami narx: <span id="total-2">7000</span> so'm</p>
+                <button onclick="addToCart(2, 'Mahsulot 2', 7000)">Sotib olish</button>
+            </div>
+        </section>
+        
+        <section id="cart">
+            <h2>Savatcha</h2>
+            <ul id="cart-items"></ul>
+            <button id="order-btn">Buyurtma Berish</button>
+        </section>
+    </div>
+
+
+
+
+
     
     <script>
         let cart = [];
@@ -103,67 +115,19 @@
                 })
                 .catch(error => console.error("Buyurtma yuborishda xatolik:", error));
         });
+        function searchProducts() {
+        let input = document.getElementById('search-box').value.toLowerCase(); // Kiritilgan matn
+        let products = document.getElementsByClassName('product'); // Barcha mahsulotlar
+
+        for (let i = 0; i < products.length; i++) {
+            let productName = products[i].getElementsByTagName('h3')[0].innerText.toLowerCase(); // Mahsulot nomi
+            if (productName.includes(input)) {
+                products[i].style.display = "block"; // Agar mos kelsa, ko‘rsatamiz
+            } else {
+                products[i].style.display = "none"; // Mos kelmasa, yashiramiz
+            }
+        }
+    }
     </script>
-    
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        header {
-            background: #28a745;
-            color: white;
-            padding: 15px;
-            text-align: center;
-            width: 100%;
-        }
-        #products {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 20px;
-            padding: 20px;
-        }
-        .product {
-            border: 1px solid #ddd;
-            padding: 15px;
-            width: 250px;
-            text-align: center;
-        }
-        .product img {
-            width: 100%;
-            height: auto;
-        }
-        #cart {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            background: #333;
-            color: white;
-            padding: 15px;
-            text-align: center;
-        }
-        #cart-items {
-            list-style: none;
-            padding: 0;
-        }
-        #cart-items li {
-            margin: 5px 0;
-        }
-        button {
-            background: #28a745;
-            color: white;
-            border: none;
-            padding: 10px;
-            cursor: pointer;
-        }
-        button:hover {
-            background: #218838;
-        }
-    </style>
 </body>
 </html>
