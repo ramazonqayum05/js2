@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Panel</title>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+</head>
+<body>
+    <h1>Admin Panel - Buyurtmalar</h1>
+    <ul id="order-list"></ul>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyA9135j...",
+            authDomain: "chat-ff9c7.firebaseapp.com",
+            databaseURL: "https://chat-ff9c7-default-rtdb.firebaseio.com",
+            projectId: "chat-ff9c7",
+            storageBucket: "chat-ff9c7.firebasestorage.app",
+            messagingSenderId: "261792238950",
+            appId: "1:261792238950:web:d9302bbeb00272b66fcca7",
+            measurementId: "G-YYGJVYMEMR"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+
+        function loadOrders() {
+            db.ref('orders').on('value', function(snapshot) {
+                const orderList = document.getElementById('order-list');
+                orderList.innerHTML = ''; // Eski buyurtmalarni tozalash
+                
+                snapshot.forEach(order => {
+                    const orderData = order.val();
+                    const li = document.createElement('li');
+                    li.innerHTML = `<strong>${orderData.date}</strong><br>`;
+                    
+                    orderData.items.forEach(item => {
+                        li.innerHTML += `${item.name} - ${item.meters} metr - ${item.totalPrice} so'm<br>`;
+                    });
+
+                    orderList.appendChild(li);
+                });
+            });
+        }
+
+        loadOrders();
+    </script>
+</body>
+</html>
